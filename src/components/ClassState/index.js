@@ -1,4 +1,7 @@
 import React from "react";
+import '../styles/styles.css';
+
+const SECURITY_CODE = 'paradigma';
 
 class ClassState extends React.Component{
 
@@ -7,6 +10,7 @@ class ClassState extends React.Component{
         super(props);
     
         this.state = {
+            value: "",
             error: false,
             loading: false,
         }
@@ -15,14 +19,18 @@ class ClassState extends React.Component{
     componentDidUpdate(){
         if(this.state.loading){
             setTimeout(()=>{
-                this.setState({ loading: false })
+                if(this.state.value !== SECURITY_CODE){
+                    this.setState({loading: false, error: true});
+                }else{
+                    this.setState({loading: false, error: false});
+                }
             }, 2000)
         }
     }
 
     render(){
         return (
-            <div>
+            <div className="box">
                 <h2>Eliminar {this.props.name}</h2>
 
                 <p>Por favor, escribe el código de seguridad.</p>
@@ -35,8 +43,8 @@ class ClassState extends React.Component{
                     <p>Cargando...</p>
                 )}
 
-                <input type="text" placeholder="Código de seguridad"/>
-                <button onClick={()=>this.setState({loading: true})}>Comprobar</button>
+                <input value={this.state.value} onChange={e=>this.setState({value: e.target.value})} type="text" placeholder="Código de seguridad"/>
+                <button onClick={()=>this.setState({loading: true, error: false})}>Comprobar</button>
             </div>
         )
     }

@@ -1,0 +1,11 @@
+.box{
+    text-align: center;
+    align-items: center;
+}
+
+.btn{
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgb(200, 233, 233);
+}
